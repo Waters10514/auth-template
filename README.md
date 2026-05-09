@@ -25,6 +25,16 @@ Claude Code will:
 3. Confirm the plan before touching anything
 4. Copy all files, make the three project-specific edits, generate your `SESSION_SECRET`, and give you the exact SQL to run
 
+**Migrating an existing project?** Use this prompt instead:
+
+```
+Migrate this project to the Waters 2FA auth system.
+Follow the instructions at:
+https://raw.githubusercontent.com/Waters10514/auth-template/main/CLAUDE_MIGRATE.md
+```
+
+**Can't remember the prompts?** See [PROMPTS.md](./PROMPTS.md) — bookmark it.
+
 ---
 
 ## Table of Contents

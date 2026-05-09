@@ -9,6 +9,24 @@ Built and battle-tested in [career_insights_web](https://github.com/Waters10514/
 
 ---
 
+## Using with Claude Code
+
+Paste this single prompt into Claude Code at the start of a new project session:
+
+```
+Implement the Waters 2FA auth system in this project.
+Follow the instructions in CLAUDE_SETUP.md at:
+https://raw.githubusercontent.com/Waters10514/auth-template/main/CLAUDE_SETUP.md
+```
+
+Claude Code will:
+1. Read the project name from `package.json` automatically
+2. Ask you for the Authenticator display name and user details
+3. Confirm the plan before touching anything
+4. Copy all files, make the three project-specific edits, generate your `SESSION_SECRET`, and give you the exact SQL to run
+
+---
+
 ## Table of Contents
 
 1. [How It Works](#how-it-works)

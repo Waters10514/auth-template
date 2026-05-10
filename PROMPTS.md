@@ -24,5 +24,18 @@ https://raw.githubusercontent.com/Waters10514/auth-template/main/CLAUDE_MIGRATE.
 
 ---
 
+## Existing project (already on Waters 2FA — apply latest upstream patches)
+
+```
+Apply the latest Waters 2FA auth patches to this project.
+Follow the instructions at:
+https://raw.githubusercontent.com/Waters10514/auth-template/main/CLAUDE_PATCH.md
+```
+
+Each patch in that file is idempotent — if a project is already up to date
+on a given patch, Claude will skip it.
+
+---
+
 That's it. Claude Code will take it from there —
 it reads the project name itself and asks you for the rest.

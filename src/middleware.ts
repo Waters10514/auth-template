@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSessionFromRequest } from '@/lib/session'
+import { getSessionFromRequest, COOKIE_NAME } from '@/lib/session'
 
-/**
- * Middleware — protects every route except login and auth API endpoints.
- * Place this file at the root of your src/ directory (or project root if no src/).
- *
- * Any unauthenticated request is redirected to /login before reaching your pages.
- */
+export const runtime = 'nodejs'   // critical: prevents Edge/Node HMAC mismatch
 
 const PUBLIC_PATHS = [
   '/login',
-  '/api/auth', // all /api/auth/* routes are public (they're the login flow itself)
+  '/api/auth',
+  // ── keep any project-specific public paths that were already here ──
+  // e.g. '/api/cron', '/api/webhooks', '/api/healthz'
 ]
 
 export function middleware(request: NextRequest) {
@@ -19,13 +16,18 @@ export function middleware(request: NextRequest) {
 
   const session = getSessionFromRequest(request)
   if (!session) {
+    const hasCookie = !!request.cookies.get(COOKIE_NAME)?.value
+    const secretSet = !!process.env.SESSION_SECRET
+    console.log(
+      `[middleware] redirect → /login path=${request.nextUrl.pathname} ` +
+        `cookie=${hasCookie ? 'present' : 'missing'} ` +
+        `secret=${secretSet ? 'set' : 'unset'}`,
+    )
     return NextResponse.redirect(new URL('/login', request.url))
   }
-
   return NextResponse.next()
 }
 
 export const config = {
-  // Match everything except Next.js internals and static files
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 }
